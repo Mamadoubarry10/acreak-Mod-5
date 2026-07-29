@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import {fetchSignUp} from '../redux/action'
+import { NavLink } from 'react-router-dom'
+import USLocationPicker, { findExactUSCity } from './USLocationPicker'
 
 
 
@@ -14,7 +16,10 @@ class Signup extends React.Component{
         password:"",
         userImg:"",
         phone:"",
-        location:""
+        city:"",
+        stateCode:"",
+        locationIsValid:false,
+        locationError:""
     }
 
     changeHandler=(e)=>{
@@ -25,7 +30,29 @@ class Signup extends React.Component{
 
     localSubmithandler= (e)=>{
         e.preventDefault()
-        this.props.submitHandler(this.state)
+        const matchedCity = findExactUSCity(this.state.city, this.state.stateCode)
+
+        if (!matchedCity || !this.state.locationIsValid) {
+            this.setState({
+                locationError: "Choose a city from the suggestions and confirm its state."
+            })
+            return
+        }
+
+        this.props.submitHandler({
+            ...this.state,
+            city: matchedCity.name,
+            location: `${matchedCity.name}, ${matchedCity.stateCode}`
+        })
+    }
+
+    locationChangeHandler = ({city, stateCode, isValid}) => {
+        this.setState({
+            city,
+            stateCode,
+            locationIsValid: isValid,
+            locationError: ""
+        })
     }
 
     uploadImage = async e => {
@@ -49,23 +76,35 @@ class Signup extends React.Component{
       }
     render(){
         return(
-            <div>
-                <h1 className="list-h1">Sign UP</h1>
-                <div className="main2">
-                 <form onSubmit={this.localSubmithandler} className="form1">
-                 <input className="pass" type="text" name ="name"  value={this.state.name} onChange={e => this.changeHandler(e)} align="center" placeholder="name"/>
-                 <input className="pass" type="text" name ="username"  value={this.state.username} onChange={e => this.changeHandler(e)} align="center" placeholder="username"/>
-                 <input className="pass " type="email" name="email" value={this.state.email} onChange={e => this.changeHandler(e)} align="center" placeholder="email"/>
-                 <input className="pass" type="password" name="password" value={this.state.password} onChange={e => this.changeHandler(e)} align="center" placeholder="password"/>
-                 <input className="un" type="file" name="userImg" onChange={e => this.uploadImage(e)} align="center" placeholder="photo"/>
-                 <input className="un" type="tel" name ="phone" value={this.state.phone} onChange={e => this.changeHandler(e)} align="center" placeholder="phone"/>
-                 <input className="un" type="text" name="location" value={this.state.location} onChange={e => this.changeHandler(e)} align="center" placeholder="location"/>
-                 <input className="button" type="submit" value="Submit" />
-                
-                </form>
+            <main className="form-page">
+                <div className="form-shell">
+                 <div className="form-heading">
+                    <span className="page-eyebrow">Join the community</span>
+                    <h1>Create your profile</h1>
+                    <p>Save properties, connect with owners, and list your own land.</p>
+                 </div>
+                 <form onSubmit={this.localSubmithandler} className="theme-form theme-form-grid">
+                 <div className="field-group"><label>Full name</label><input className="theme-input" type="text" name ="name" value={this.state.name} onChange={e => this.changeHandler(e)} placeholder="Your full name"/></div>
+                 <div className="field-group"><label>Username</label><input className="theme-input" type="text" name ="username" value={this.state.username} onChange={e => this.changeHandler(e)} placeholder="Choose a username"/></div>
+                 <div className="field-group"><label>Email</label><input className="theme-input" type="email" name="email" value={this.state.email} onChange={e => this.changeHandler(e)} placeholder="you@example.com"/></div>
+                 <div className="field-group"><label>Password</label><input className="theme-input" type="password" name="password" value={this.state.password} onChange={e => this.changeHandler(e)} placeholder="Create a password"/></div>
+                 <div className="field-group field-group-wide"><label>Profile photo</label><input className="theme-input theme-file-input" type="file" name="userImg" onChange={e => this.uploadImage(e)}/></div>
+                 <div className="field-group"><label>Phone</label><input className="theme-input" type="tel" name ="phone" value={this.state.phone} onChange={e => this.changeHandler(e)} placeholder="Your phone number"/></div>
+                 <USLocationPicker
+                    city={this.state.city}
+                    stateCode={this.state.stateCode}
+                    onChange={this.locationChangeHandler}
+                 />
+                 {this.state.locationError && (
+                    <p className="form-error field-group-wide" role="alert">
+                        {this.state.locationError}
+                    </p>
+                 )}
+                 <input className="theme-button theme-button-primary field-group-wide" type="submit" value="Create account" />
+                 </form>
+                 <p className="auth-switch">Already have an account? <NavLink to="/">Sign in</NavLink></p>
                 </div>
-            
-            </div>
+            </main>
 
 
 

@@ -1,12 +1,10 @@
 import React from 'react'
-import logo from './logo.svg';
 import {connect} from 'react-redux'
 import {fetchPropeties} from './redux/action'
 import './App.css';
 import Login from './component/login'
 import List from './component/list'
 import Navbar from './component/navbar'
-import Signup from './component/signup'
 import ListingConatiner from './container/listingContainer'
 import FavoritesContainer from './container/favoritesContainer'
 import ProfileContainer from './container/profileContainer'
@@ -16,6 +14,7 @@ import Homepage from './component/home'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+const Signup = React.lazy(() => import('./component/signup'))
 
 
 
@@ -68,7 +67,11 @@ class App extends React.Component{
        <Route path= "/" render={()=> <Homepage/>} />
        </Switch>
        :<Switch>
-       <><Route path= "/signup" exact render={()=><Signup/>} />
+       <><Route path= "/signup" exact render={()=>
+          <React.Suspense fallback={<div className="route-loading">Loading signup…</div>}>
+            <Signup/>
+          </React.Suspense>
+        } />
         <Route path= "/" exact render={()=><Login/>} />
        </> </Switch>
        

@@ -27,22 +27,23 @@ class Login extends React.Component{
 
         return(
   
-            <div>
-            <div className="main">
-                <p className="sign" align="center">Sign in</p>
-                <form onSubmit={this.localSubmithandler} className="form1" >
-                <input className="un " type="text" name ="username" value={this.state.username} onChange={e => this.changeHandler(e)} align="center" placeholder="Username"/>
-                <input className="pass" type="password" name = "password" value={this.state.password} onChange={e => this.changeHandler(e)} align="center" placeholder="Password"/>
-                <input className="button" type="submit" value="Submit" />
-                
+            <main className="auth-page">
+            <div className="auth-card">
+                <div className="auth-brand"><span>A</span></div>
+                <span className="page-eyebrow">Welcome back</span>
+                <h1 className="auth-title">Sign in to Acreak</h1>
+                <p className="auth-subtitle">Your saved land and listings are waiting.</p>
+                <form onSubmit={this.localSubmithandler} className="theme-form">
+                <label>Username</label>
+                <input className="theme-input" type="text" name ="username" value={this.state.username} onChange={e => this.changeHandler(e)} placeholder="Enter your username"/>
+                <label>Password</label>
+                <input className="theme-input" type="password" name = "password" value={this.state.password} onChange={e => this.changeHandler(e)} placeholder="Enter your password"/>
+                <input className="theme-button theme-button-primary theme-button-block" type="submit" value="Sign in" />
                 </form>
-                {this.props.error ? <h5 style={{ color: "red", textAlign: "center" }}>Incorrect username or password</h5> : null}
-
-                <p style={{textAlign:"center"}}>Don't have an account? <NavLink to={`/signup`} exact className="signUp-link">Sign Up</NavLink></p>
-
-      
+                {this.props.error ? <p className="form-error">Incorrect username or password</p> : null}
+                <p className="auth-switch">New to Acreak? <NavLink to="/signup" exact>Build your profile</NavLink></p>
     </div>
-                </div>
+                </main>
          
         )
 
@@ -59,4 +60,3 @@ function msp(state){
 }
 
 export default connect(msp, mdp)(Login)
-

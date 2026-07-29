@@ -1,55 +1,27 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import {Navbar} from 'react-bootstrap'
-import { Nav } from 'react-bootstrap'
+import {Navbar, Nav} from 'react-bootstrap'
 import { connect } from 'react-redux'
 
-import  'bulma/css/bulma.css'
-
-const navbar = (props) =>{
-
+const Navigation = (props) =>{
     return(
-        
-        <Navbar bg="dark" expand="lg" sticky="top">
+        <Navbar className="site-navbar" expand="lg" sticky="top">
+        <NavLink to="/" exact className="site-brand">
+            <span className="site-brand-mark">A</span>
+            <span>Acreak</span>
+        </NavLink>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-               
-     <NavLink to="/" exact className="nav-link" style={{
-    fontWeight: "bold",
-    color: "white"
-  }}>Home</NavLink>
-      <NavLink to="/listings" exact className="nav-link"  style={{
-    fontWeight: "bold",
-    color: "white"
-  }}>Listings</NavLink>
-      <NavLink to="/favorites" exact className="nav-link"  style={{
-    fontWeight: "bold",
-    color: "white"
-  }}>Favorites</NavLink>
-      <NavLink to="/list" exact className="nav-link"  style={{
-    fontWeight: "bold",
-    color: "white"
-  }}>Sell</NavLink>
-      <NavLink to="/profile" exact className="nav-link"  style={{
-    fontWeight: "bold",
-    color: "white"
-  }}>Profile</NavLink>  
-         
+                <NavLink to="/" exact className="site-nav-link" activeClassName="active">Home</NavLink>
+                <NavLink to="/listings" exact className="site-nav-link" activeClassName="active">Listings</NavLink>
+                <NavLink to="/favorites" exact className="site-nav-link" activeClassName="active">Favorites</NavLink>
+                <NavLink to="/list" exact className="site-nav-link" activeClassName="active">Sell land</NavLink>
+                <NavLink to="/profile" exact className="site-nav-link" activeClassName="active">Profile</NavLink>
             </Nav>
-            
-           <Nav>
-    <p onClick={props.logOut} className="nav-link" style={{
-    fontWeight: "bold",
-    color: "white",
-    cursor:"pointer",
-    display:"inline"
-    
-  }}>Log Out</p>   
-  </Nav>      
+            <button onClick={props.logOut} className="nav-logout">Log out</button>
         </Navbar.Collapse>
-    </Navbar>
-        
-  
+        </Navbar>
     )
 }
 const mdp = (dispatch)=>{
@@ -57,4 +29,4 @@ const mdp = (dispatch)=>{
     return { logOut:()=> dispatch({type: "LOG_OUT"})}
 }
 
-export default connect(null,mdp)(navbar)
+export default connect(null,mdp)(Navigation)

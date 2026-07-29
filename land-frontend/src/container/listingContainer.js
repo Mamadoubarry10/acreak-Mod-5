@@ -5,7 +5,7 @@ import{CardColumns} from 'react-bootstrap'
 
 
 
- class listingContainer extends React.Component{
+ class ListingContainer extends React.Component{
 
      renderListing = () => { 
          return this.props.properties.map(land => <ListingCard  key={land.id} land={land}/>)
@@ -16,14 +16,18 @@ import{CardColumns} from 'react-bootstrap'
         console.log("look", this.props.properties.find(el => el.id === '4') )
         return (
           
-        <div>
-            <h1 className="list-h1">All Listings</h1>
-            <CardColumns style={{textAlign: "center"}}>
-            {this.renderListing()}
-            </CardColumns>
-        
-     
-        </div>
+        <main className="collection-page">
+            <header className="page-header">
+                <span className="page-eyebrow">Available acreage</span>
+                <h1>Find land worth building on.</h1>
+                <p>Explore properties listed directly by the Acreak community.</p>
+            </header>
+            {this.props.properties.length ? (
+                <CardColumns className="property-grid">{this.renderListing()}</CardColumns>
+            ) : (
+                <div className="profile-empty-state"><h3>No listings available</h3><p>Check back soon for new land.</p></div>
+            )}
+        </main>
      )
 
     }
@@ -35,4 +39,4 @@ return { properties: state.properties}
 }
 
 
-export default connect(msp)(listingContainer)
+export default connect(msp)(ListingContainer)

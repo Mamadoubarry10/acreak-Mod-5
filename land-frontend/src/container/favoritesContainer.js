@@ -6,7 +6,7 @@ import{CardColumns} from 'react-bootstrap'
 
 
 
- class favoritesContainer extends React.Component{
+ class FavoritesContainer extends React.Component{
 
     
 
@@ -22,18 +22,18 @@ import{CardColumns} from 'react-bootstrap'
         
         return (
       
-        <div>
-            <h1 className="list-h1">My favorites</h1>
-        <CardColumns style={{textAlign: "center"}}>
-        {
-        this.renderListing()}
-
-        </CardColumns>
-     
-        {console.log("faves props", this.props.favorite)}
-    
-        
-        </div>
+        <main className="collection-page">
+            <header className="page-header">
+                <span className="page-eyebrow">Saved for later</span>
+                <h1>Your favorite land.</h1>
+                <p>Keep the properties you are considering together in one place.</p>
+            </header>
+            {this.props.favorite.length ? (
+                <CardColumns className="property-grid">{this.renderListing()}</CardColumns>
+            ) : (
+                <div className="profile-empty-state"><span className="profile-empty-icon" aria-hidden="true">♡</span><h3>No favorites yet</h3><p>Save a listing and it will appear here.</p></div>
+            )}
+        </main>
 
        
      )
@@ -47,4 +47,4 @@ return { favorite: state.favorites, favorite_id: state.favorite_id}
 }
 
 
-export default connect(msp)(favoritesContainer)
+export default connect(msp)(FavoritesContainer)

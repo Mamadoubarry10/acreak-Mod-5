@@ -103,23 +103,25 @@ class List extends React.Component{
         
         return(
             
-            <div>
-                <h1 className="list-h1">New Listing</h1>
-                <div className="main2">
-                 <form onSubmit={this.localSubmithandler}className="form1">
-                 <input className="pass" type="file" name = "image1"  onChange={e => this.uploadImage1(e)} align="center" placeholder="Photo"/>
-                 <input className="pass" type="file" name = "image2"   onChange={e => this.uploadImage2(e)} align="center" placeholder="Photo"/>
-                 <input className="pass" type="file" name = "image3"   onChange={e => this.uploadImage3(e)} align="center" placeholder="Photo"/>
-                 <input className="pass " type="text" name ="price" value={this.state.price} onChange={e => this.changeHandler(e)} align="center" placeholder="price"/>
-                 <input className="pass" type="number" name = "acres" value={this.state.acres} onChange={e => this.changeHandler(e)} align="center" placeholder="acres"/>
-                 <input className="un" type="text" name ="description" value={this.state.description} onChange={e => this.changeHandler(e)} align="center" placeholder="description"/>
-                 <input className="un" type="text" name="location" value={this.state.location} onChange={e => this.changeHandler(e)} align="center" placeholder="location"/>
-                 <input className="button" type="submit" value="Submit" />
-                
-                </form>
+            <main className="form-page">
+                <div className="form-shell">
+                 <div className="form-heading">
+                    <span className="page-eyebrow">Reach the right buyer</span>
+                    <h1>List your land</h1>
+                    <p>Share the essentials and add three strong photos of your property.</p>
+                 </div>
+                 <form onSubmit={this.localSubmithandler} className="theme-form theme-form-grid">
+                 <div className="field-group"><label>Primary photo</label><input className="theme-input theme-file-input" type="file" name="image1" onChange={e => this.uploadImage1(e)}/></div>
+                 <div className="field-group"><label>Second photo</label><input className="theme-input theme-file-input" type="file" name="image2" onChange={e => this.uploadImage2(e)}/></div>
+                 <div className="field-group field-group-wide"><label>Third photo</label><input className="theme-input theme-file-input" type="file" name="image3" onChange={e => this.uploadImage3(e)}/></div>
+                 <div className="field-group"><label>Price</label><input className="theme-input" type="text" name="price" value={this.state.price} onChange={e => this.changeHandler(e)} placeholder="e.g. 125,000"/></div>
+                 <div className="field-group"><label>Acres</label><input className="theme-input" type="number" name="acres" value={this.state.acres} onChange={e => this.changeHandler(e)} placeholder="Property size"/></div>
+                 <div className="field-group field-group-wide"><label>Description</label><textarea className="theme-input theme-textarea" name="description" value={this.state.description} onChange={e => this.changeHandler(e)} placeholder="Tell buyers what makes this property special"></textarea></div>
+                 <div className="field-group field-group-wide"><label>Location</label><input className="theme-input" type="text" name="location" value={this.state.location} onChange={e => this.changeHandler(e)} placeholder="City, state"/></div>
+                 <input className="theme-button theme-button-primary field-group-wide" type="submit" value="Publish listing" />
+                 </form>
                 </div>
-            
-            </div>
+            </main>
 
 
 

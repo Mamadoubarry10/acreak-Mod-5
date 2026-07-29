@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@mardillu/us-cities-utils": "^1.2.7",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -46,7 +47,12 @@
   "main": "sass/mystyles.scss",
   "devDependencies": {
     "bulma": "^0.9.1",
-    "node-sass": "^5.0.0"
+    "sass": "^1.32.0"
+  },
+  "overrides": {
+    "postcss-safe-parser": {
+      "postcss": "8.1.0"
+    }
   },
   "author": "Mamadou Barry",
   "license": "ISC"

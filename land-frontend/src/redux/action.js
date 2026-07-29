@@ -1,7 +1,9 @@
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:3000/api/v1'
+
 export function fetchPropeties(){
     return function(dispatch){
 
-        fetch('https://acreak-backend.herokuapp.com/api/v1/listings/')
+        fetch(`${API_BASE_URL}/listings/`)
         .then(resp =>resp.json())
         .then(properties => dispatch({type: "FETCH_PROPERTIES", payload:properties.data },   console.log("here", properties))
         )
@@ -14,7 +16,7 @@ export function postPropeties(obj, User){
     console.log('hereee', obj)
     return function(dispatch){
 
-        fetch('https://acreak-backend.herokuapp.com/api/v1/listings/' , {
+        fetch(`${API_BASE_URL}/listings/` , {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -38,7 +40,7 @@ export function postPropeties(obj, User){
 export function fetchSignUp(newUser){
   console.log(newUser, 'objjjjj')
     return function(dispatch){
-        fetch('https://acreak-backend.herokuapp.com/api/v1/users', {
+        fetch(`${API_BASE_URL}/users`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -61,7 +63,7 @@ export function fetchSignUp(newUser){
 export function fetchToFavorites(current_user, listing_id){
 console.log(current_user, listing_id)
     return function(dispatch){
-        fetch('https://acreak-backend.herokuapp.com/api/v1/favorites', {
+        fetch(`${API_BASE_URL}/favorites`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -85,7 +87,7 @@ console.log(current_user, listing_id)
 export const removeFave=(item)=>{
    
     return function(dispatch){
-        fetch(`https://acreak-backend.herokuapp.com/api/v1/favorites/${item}`, {
+        fetch(`${API_BASE_URL}/favorites/${item}`, {
             method: "DELETE"
           })
             .then(res => res.json())
@@ -102,7 +104,7 @@ export const removeFave=(item)=>{
 
 export const userLoginFetch = user => {
     return function (dispatch){
-      return fetch("https://acreak-backend.herokuapp.com/api/v1/login", {
+      return fetch(`${API_BASE_URL}/login`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -123,7 +125,7 @@ export const userLoginFetch = user => {
 
 export const listAsSold = id => {
   return function (dispatch){
-    return fetch(`https://acreak-backend.herokuapp.com/api/v1/listings/${id}`, {
+    return fetch(`${API_BASE_URL}/listings/${id}`, {
       method: "PATCH",
       headers: {
         'Content-Type': 'application/json',
@@ -136,5 +138,4 @@ export const listAsSold = id => {
 
 };
 }
-
 

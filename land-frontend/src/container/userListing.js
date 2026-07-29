@@ -10,13 +10,21 @@ class userListing extends React.Component{
   }
 
 render(){
-  return (
+  const listings = this.renderUserListing()
 
-            <div>
-            
-            <CardColumns style={{textAlign: "center"}}>
-            {this.renderUserListing()}
-            </CardColumns>
+  return (
+            <div className="profile-listings-content">
+              {listings.length ? (
+                <CardColumns className="profile-listings-grid">
+                  {listings}
+                </CardColumns>
+              ) : (
+                <div className="profile-empty-state">
+                  <span className="profile-empty-icon" aria-hidden="true">⌂</span>
+                  <h3>No listings yet</h3>
+                  <p>Your properties will appear here after you create a listing.</p>
+                </div>
+              )}
             </div>
                     
      )
